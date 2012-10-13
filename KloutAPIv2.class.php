@@ -9,12 +9,11 @@
  * @license GPLv3 <http://www.gnu.org/licenses/gpl.txt>
  */
 
-// Define
-DEFINE("HTTP_GET","GET");
-DEFINE("HTTP_POST","POST");
-
 // Get Started
 class KloutAPIv2 {
+
+	const HTTP_GET = 'GET';
+	const HTTP_POST = 'POST';
 	
 	/** @var String $BaseUrl The base url for the Klout API */
 	private $BaseUrl = "http://api.klout.com/";
@@ -175,10 +174,10 @@ class KloutAPIv2 {
 	 * @param String $url The base url to query
 	 * @param Array $params The parameters to pass to the request
 	 */
-	private function Request($url,$params=false,$type=HTTP_GET){
+	private function Request($url,$params=false,$type = self::HTTP_GET){
 		
 		// Populate data for the GET request
-		if($type == HTTP_GET) $url = $this->MakeUrl($url,$params);
+		if($type == self::HTTP_GET) $url = $this->MakeUrl($url,$params);
 
 		// borrowed from Andy Langton: http://andylangton.co.uk/
 		$ch = curl_init();
@@ -194,7 +193,7 @@ class KloutAPIv2 {
 		curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
 
 		// Populate the data for POST
-		if($type == HTTP_POST){
+		if($type == self::HTTP_POST){
 			curl_setopt($ch, CURLOPT_POST, 1); 
 			if($params) curl_setopt($ch, CURLOPT_POSTFIELDS, $params);
 		}
@@ -211,7 +210,7 @@ class KloutAPIv2 {
 	 * Abstraction of the GET request
 	 */
 	private function GET($url,$params=false){
-		return $this->Request($url,$params,HTTP_GET);
+		return $this->Request($url,$params, self::HTTP_GET);
 	}
 
 	/**
@@ -219,7 +218,7 @@ class KloutAPIv2 {
 	 * Abstraction of a POST request
 	 */
 	private function POST($url,$params=false){
-		return $this->Request($url,$params,HTTP_POST);
+		return $this->Request($url,$params, self::HTTP_POST);
 	}
 
 	/**
