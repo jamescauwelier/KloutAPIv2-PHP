@@ -1,4 +1,7 @@
 <?php
+
+namespace Klout;
+
 /**
  * KloutAPI - Version 2
  * A PHP-based Klout client library
