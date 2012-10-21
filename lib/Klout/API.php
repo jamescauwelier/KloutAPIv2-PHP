@@ -202,6 +202,12 @@ class API {
 		}
 
 		$result=curl_exec($ch);
+		
+		if ($result === false) {
+		    $httpResponseCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+		    throw new \Klout\Exception('Klout HTTP error: '.$httpResponseCode, $httpResponseCode);
+		}
+		
 		$info=curl_getinfo($ch);
 		curl_close($ch);
 		
